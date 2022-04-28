@@ -1,6 +1,11 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const morgan = require('morgan');
 const app = express();
+
+app.use(morgan('dev'));
+app.use(express.json());
+
 
 app.get('/api', (req, res) => {
 	res.json({
@@ -25,7 +30,7 @@ app.post('/api/login', (req, res) => {
 
 
 
-app.get('/api/privada', verificarToken ,(req, res) => {
+app.get('/api/private', verificarToken ,(req, res) => {
 	jwt.verify(req.token, 'my_secret_key', (err, data) => {
 		if(err) {
 			res.sendStatus(403);
